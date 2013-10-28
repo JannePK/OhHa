@@ -1,4 +1,4 @@
-OhHa
+﻿OhHa
 ====
 
-Ohjelmoinnin harjoitustyötä varten.
+Ohjelmoinnin harjoitustyötä varten.Nyt testattu.
