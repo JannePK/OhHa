@@ -1,0 +1,14 @@
+
+Aihe: Tetris. Yksinkertainen peli joka soveltaa graafista käyttöliittymää. Pelaajan 
+aloittaessa pelin aluksi tyhjälle ruudulle alkaa putoilla erivärisiä ja -muotoisia
+palikoita, joita pelaaja voi käännellä. Kun kokonainen rivi on täytetty se katoaa.
+Peli jatkuu, kunnes palikkatorni koskettaa ruudun huippua. 
+
+Käyttäjät: Pelaajat
+
+Kaikkien käyttäjien toiminnot: Pelin käynnistys ja pelaaminen
+
+Pelaajan toiminnot: Pelin käynnistäminen, pelaaminen ja lopettaminen
+
+
+
