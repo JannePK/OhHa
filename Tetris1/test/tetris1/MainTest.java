@@ -52,6 +52,16 @@ public void testaaminX() {
     assertEquals( 0, vastaus, 0.001 );
 }
 @Test
+public void testaaminY() {
+    Palikka pala = new Palikka();
+ 
+    double vastaus = pala.minY();
+ 
+    assertEquals( 0, vastaus, 0.001 );
+}
+
+
+@Test
 public void OikeaPalanen() {
     Palikka pala = new Palikka();
     
@@ -76,16 +86,61 @@ public void KaantyykoNelioVasemmalle() {
 }
 
 @Test
-public void PalanMuotoOikea() {
+public void PalanLMuotoOikea() {
     Palikka pala = new Palikka();
     pala.asetaMuoto(Tetrominot.LMuoto);
  
     assertEquals(Tetrominot.LMuoto, pala.getMuoto() );
 }
 
+@Test
+public void PalanNelioMuotoOikea() {
+    Palikka pala = new Palikka();
+    pala.asetaMuoto(Tetrominot.NelioMuoto);
+ 
+    assertEquals(Tetrominot.NelioMuoto, pala.getMuoto() );
+}
 
+@Test
+public void PalanSMuotoOikea() {
+    Palikka pala = new Palikka();
+    pala.asetaMuoto(Tetrominot.SMuoto);
+ 
+    assertEquals(Tetrominot.SMuoto, pala.getMuoto() );
+}
 
+@Test
+public void PalanSuoraMuotoOikea() {
+    Palikka pala = new Palikka();
+    pala.asetaMuoto(Tetrominot.SuoraMuoto);
+ 
+    assertEquals(Tetrominot.SuoraMuoto, pala.getMuoto() );
+}
+
+@Test
+public void PalanTMuotoOikea() {
+    Palikka pala = new Palikka();
+    pala.asetaMuoto(Tetrominot.TMuoto);
+ 
+    assertEquals(Tetrominot.TMuoto, pala.getMuoto() );
+}
     
+@Test
+public void PalanToinenLMuotoOikea() {
+    Palikka pala = new Palikka();
+    pala.asetaMuoto(Tetrominot.ToinenLMuoto);
+ 
+    assertEquals(Tetrominot.ToinenLMuoto, pala.getMuoto() );
+}
+
+@Test
+public void PalanZMuotoOikea() {
+    Palikka pala = new Palikka();
+    pala.asetaMuoto(Tetrominot.ZMuoto);
+ 
+    assertEquals(Tetrominot.ZMuoto, pala.getMuoto() );
+}
+
     @Test
     public void testMain() {
         System.out.println("main");

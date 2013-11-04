@@ -24,10 +24,11 @@ public class Main extends JFrame{
         System.out.println(palikka.getMuoto());
         palikka.asetaSatunnaismuoto();
         System.out.println(palikka.getMuoto());
+        palikka.kaannaOikealle();
+        System.out.println(palikka.getMuoto());
         
         Main peli = new Main();
-        peli.setLocationRelativeTo(null);
-        peli.setVisible(true);
+        
         
         // TODO code application logic here
     }
