@@ -43,11 +43,11 @@ public class Palikka {
 
     }
 
-    private void setX(int index, int x) {
+    public void setX(int index, int x) {
         koordinaatit[index][0] = x;
     }
 
-    private void setY(int index, int y) {
+    public void setY(int index, int y) {
         koordinaatit[index][1] = y;
     }
 
@@ -116,5 +116,10 @@ public class Palikka {
             pala.setY(i, x(i));
         }
         return pala;
+    }
+    
+    public int[][] getKoordinaatit(){
+   
+        return koordinaatit;
     }
 }

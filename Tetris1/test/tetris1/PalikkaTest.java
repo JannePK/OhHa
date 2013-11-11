@@ -12,14 +12,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import tetris1.Palikka.Tetrominot;
 
-/**
- *
- * @author Janne
- */
+
 public class PalikkaTest {
     Palikka palikka;
+    private int koordinaatit[][];
+    
     public PalikkaTest() {
         palikka = new Palikka();
+        koordinaatit = new int[4][2];
     }
     
     @BeforeClass
@@ -33,6 +33,7 @@ public class PalikkaTest {
     @Before
     public void setUp() {
         palikka = new Palikka();
+        koordinaatit = new int[4][2];
     }
     
     @After
@@ -136,6 +137,46 @@ public void PalanZMuotoOikea() {
  
     assertEquals(Tetrominot.ZMuoto, pala.getMuoto() );
 }
+  @Test
+public void minYTest() {
+    Palikka pala = new Palikka();
+   
+ 
+    assertEquals(0, pala.minY()  );
+}  
+    @Test
+public void minXTest() {
+    Palikka pala = new Palikka();
+   
+ 
+    assertEquals(0, pala.minX()  );
+}
+    @Test
+public void koordinaattiTest() {
+    Palikka pala = new Palikka();
+   
+ 
+    assertEquals(koordinaatit, pala.getKoordinaatit()  );
+}
+     @Test
+public void toinenKoordinaattiTest() {
+    Palikka pala = new Palikka();
+   pala.setX(2, 1);
+koordinaatit = new int [4][2];
+   koordinaatit[2][0]=1;
+
+    assertEquals(koordinaatit, pala.getKoordinaatit()  );
+} 
+     @Test
+public void kolmasKoordinaattiTest() {
+    Palikka pala = new Palikka();
+   pala.setY(2, 1);
+koordinaatit = new int [4][2];
+   koordinaatit[2][1]=1;
+
+    assertEquals(koordinaatit, pala.getKoordinaatit()  );
+} 
+     
     
     
 }
