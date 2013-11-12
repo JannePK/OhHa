@@ -8,9 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
+
 
 import tetris1.Palikka.Tetrominot;
 
@@ -27,14 +26,13 @@ public class Peli extends JPanel implements ActionListener {
     Palikka pala;
     Tetrominot[] muodot;
 
-    public Peli(PelinAlustus pa) {
+    public Peli() {
 
         setFocusable(true);
         pala = new Palikka();
         ajastin = new Timer(200, this);
         ajastin.start();
 
-        statusbar = pa.getStatusBar();
         muodot = new Tetrominot[RuudunLeveys * RuudunKorkeus];
         addKeyListener(new TAdapter());
         tyhjennaRuutu();

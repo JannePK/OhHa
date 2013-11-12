@@ -13,14 +13,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-
+Peli peli1 = new Peli();
         Palikka palikka = new Palikka();
         System.out.println(palikka.getMuoto());
         palikka.asetaSatunnaismuoto();
         System.out.println(palikka.getMuoto());
         palikka.kaannaOikealle();
         System.out.println(palikka.getMuoto());
-
+System.out.println(peli1.nelionLeveys());
+        
         PelinAlustus peli = new PelinAlustus();
 
 
