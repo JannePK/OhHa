@@ -24,6 +24,7 @@ public class PeliTest {
     public PeliTest() {
         
         peli = new Peli();
+        
     }
     
     @BeforeClass
@@ -38,6 +39,7 @@ public class PeliTest {
     @Before
     public void setUp() {
         peli = new Peli();
+        
     }
     
     @After
@@ -62,13 +64,33 @@ public void nelionKorkeusTest() {
 int leveys = peli.nelionKorkeus();
     assertEquals(0, leveys );
 }
-         @Test
-public void nelionKorkeusTest2() {
 
-int leveys = peli.nelionKorkeus();
-    assertEquals(0, leveys );
+   @Test
+public void starttiTest() {
+
+peli.starttaa();
+boolean alkanut = peli.onkoAlkanut;
+    assertEquals(true, alkanut );
+}     
+    @Test
+public void starttiTest2() {
+
+peli.starttaa();
+boolean alkanut = peli.onkoPudonnut;
+    assertEquals(false, alkanut );
+}     
+     @Test
+public void starttiTest3() {
+
+peli.starttaa();
+Tetrominot[] muodot = peli.muodot;
+Tetrominot[] muodot2 = new Tetrominot[peli.RuudunKorkeus*peli.RuudunLeveys];
+for (int i = 0; i < peli.RuudunKorkeus * peli.RuudunLeveys; ++i) {
+            muodot2[i] = Tetrominot.EiMuotoa;
+        }
+
+    assertEquals(muodot2, muodot );
 }  
-      
     
    
     

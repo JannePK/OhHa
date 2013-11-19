@@ -8,10 +8,21 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+ /**
+     * PelinAlustus-luokka alustaa pelin ja graafisen käyttöliittymän.
+     * <p>
+     * Ohjelmoinnin harjoitustyö, periodi II, syksy 2013.
+     * <p>
+     * @author Janne Knuutinen,
+     * Helsingin yliopisto.
+     */
+
 public class PelinAlustus extends JFrame {
 
-  
-
+/**
+ * PelinAlustus-luokan konstruktori, joka luo uuden Peli-olion, käyttää sen startaa-metodia aloittaakseen pelin. 
+ *
+ */
     public PelinAlustus() {
 
         Peli peli = new Peli();

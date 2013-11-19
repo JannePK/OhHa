@@ -7,12 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import javax.swing.*;
 
 
 import tetris1.Palikka.Tetrominot;
 
+/**
+ * Peli-luokka sisältää tetriksen pelilogiikan. <p> Ohjelmoinnin harjoitustyö,
+ * periodi II, syksy 2013. <p>
+ *
+ * @author Janne Knuutinen, Helsingin yliopisto.
+ */
 public class Peli extends JPanel implements ActionListener {
 
     final int RuudunLeveys = 25;
@@ -22,22 +27,29 @@ public class Peli extends JPanel implements ActionListener {
     boolean onkoAlkanut = false;
     int nykyinenX = 0;
     int nykyinenY = 0;
-    JLabel statusbar;
     Palikka pala;
     Tetrominot[] muodot;
 
+    /**
+     * Peli-luokan konstruktori.
+     *
+     */
     public Peli() {
 
         setFocusable(true);
         pala = new Palikka();
         ajastin = new Timer(200, this);
         ajastin.start();
-
         muodot = new Tetrominot[RuudunLeveys * RuudunKorkeus];
         addKeyListener(new TAdapter());
         tyhjennaRuutu();
     }
 
+    /**
+     * Metodi aloittaa pelin tyhjentämällä ruudun, luomalla uuden palan ja
+     * starttaamalla ajastimen.
+     *
+     */
     public void starttaa() {
 
         onkoAlkanut = true;
@@ -62,7 +74,6 @@ public class Peli extends JPanel implements ActionListener {
     public int nelionLeveys() {
         return (int) getSize().getWidth() / RuudunLeveys;
     }
-    
 
     public int nelionKorkeus() {
         return (int) getSize().getHeight() / RuudunKorkeus;
@@ -72,6 +83,13 @@ public class Peli extends JPanel implements ActionListener {
         return muodot[(y * RuudunLeveys) + x];
     }
 
+    /**
+     * Metodi, joka vastaa palikoiden värittämisestä.
+     *
+     * Use {@link #doMove(int, int, int, int)} to move a piece.
+     *
+     * @param g importattu grafiikka.
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -79,19 +97,38 @@ public class Peli extends JPanel implements ActionListener {
         Dimension koko = getSize();
         int huippu = (int) koko.getHeight() - RuudunKorkeus * nelionKorkeus();
 
+        for (int i = 0; i < RuudunKorkeus; ++i) {
+            for (int j = 0; j < RuudunLeveys; ++j) {
+                Tetrominot shape = tetrominonMuoto(j, RuudunKorkeus - i - 1);
+                if (shape != Tetrominot.EiMuotoa) {
+                    piirraNelio(g, 0 + j * nelionLeveys(),
+                            huippu + i * nelionKorkeus(), shape);
+                }
+            }
+        }
+
         if (pala.getMuoto() != Tetrominot.EiMuotoa) {
             for (int i = 0; i < 4; ++i) {
                 int x = nykyinenX + pala.x(i);
                 int y = nykyinenY - pala.y(i);
                 piirraNelio(g, 0 + x * nelionLeveys(),
-                        huippu + (RuudunKorkeus - y - 1) * nelionKorkeus());
+                        huippu + (RuudunKorkeus - y - 1) * nelionKorkeus(), pala.getMuoto());
             }
         }
     }
 
-    private void piirraNelio(Graphics g, int x, int y) {
+    private void piirraNelio(Graphics g, int x, int y, Tetrominot muoto) {
 
-        Color vari = new Color(0, 0, 0);
+
+
+        Color varit[] = {new Color(0, 0, 0), new Color(204, 102, 102),
+            new Color(102, 204, 102), new Color(102, 102, 204),
+            new Color(204, 204, 102), new Color(204, 102, 204),
+            new Color(102, 204, 204), new Color(218, 170, 0)
+        };
+
+
+        Color vari = varit[muoto.ordinal()];
 
         g.setColor(vari);
         g.fillRect(x + 1, y + 1, nelionLeveys() - 2, nelionKorkeus() - 2);
@@ -139,6 +176,15 @@ public class Peli extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Kertoo voiko palikkaa liikuttaa.
+     *
+     * @param uusiPala palikka-olio, jonka tilaa metodin halutaan tutkivan.
+     * @param uusiX kuinka paljon palikkaa halutaan liikuttaa leveyssuunnassa.
+     * @param uusiY kuinka paljon palikkaa halutaan liikuttaa pituussuunnassa.
+     * @return false, jos palan liikuttaminen johtaisi ruudun reunoihin tai
+     * toiseen palikkaan osumiseen, muuten true.
+     */
     public boolean voikoLiikuttaa(Palikka uusiPala, int uusiX, int uusiY) {
         for (int i = 0; i < 4; ++i) {
             int x = uusiX + uusiPala.x(i);
@@ -160,6 +206,7 @@ public class Peli extends JPanel implements ActionListener {
 
     class TAdapter extends KeyAdapter {
 
+        @Override
         public void keyPressed(KeyEvent e) {
 
             int koodi = e.getKeyCode();
