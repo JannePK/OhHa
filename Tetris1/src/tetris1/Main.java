@@ -5,7 +5,7 @@
 package tetris1;
 
 import tetris1.logiikka.Palikka;
-import tetris1.logiikka.Peli;
+import tetris1.logiikka.Logiikka;
 import tetris1.kauttoliittyma.PelinAlustus;
 import java.awt.BorderLayout;
 
@@ -16,14 +16,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-Peli peli1 = new Peli();
+Logiikka peli1 = new Logiikka();
         Palikka palikka = new Palikka();
         System.out.println(palikka.getMuoto());
         palikka.asetaSatunnaismuoto();
         System.out.println(palikka.getMuoto());
         palikka.kaannaOikealle();
         System.out.println(palikka.getMuoto());
-System.out.println(peli1.nelionLeveys());
+
         
         PelinAlustus peli = new PelinAlustus();
 
