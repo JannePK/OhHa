@@ -1,4 +1,4 @@
-package tetris1;
+package tetris1.logiikka;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,9 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
-
-
-import tetris1.Palikka.Tetrominot;
+import tetris1.logiikka.Palikka.Tetrominot;
 
 /**
  * Peli-luokka sisältää tetriksen pelilogiikan. <p> Ohjelmoinnin harjoitustyö,
@@ -23,11 +21,11 @@ public class Peli extends JPanel implements ActionListener {
     /**
      * Luku, joka kertoo peliruudun leveyden.
      */
-    final int RuudunLeveys = 25;
+    public final int RuudunLeveys = 25;
     /**
      * Luku, joka kertoo peliruudun korkeuden.
      */
-    final int RuudunKorkeus = 25;
+    public final int RuudunKorkeus = 25;
      /**
      * Olio, joka mahdollistaa pelitapahtumien tapahtumisen oikeaan aikaan.
      */
@@ -35,11 +33,11 @@ public class Peli extends JPanel implements ActionListener {
      /**
      * Kertoo, onko palikka pudonnut vai ei.
      */
-    boolean onkoPudonnut = false;
+    public boolean onkoPudonnut = false;
      /**
      * Kertoo, onko peli alkanut.
      */
-    boolean onkoAlkanut = false;
+    public boolean onkoAlkanut = false;
      /**
      * Palikan tämänhetkinen x-koordinaatti.
      */
@@ -51,11 +49,11 @@ public class Peli extends JPanel implements ActionListener {
     /**
      * Palikkaolio jota käytetään pelissä.
      */
-    Palikka pala;
+   public Palikka pala;
     /**
      * Tetrominot joita käytetään pelissä.
      */
-    Tetrominot[] muodot;
+    public Tetrominot[] muodot;
 
     /**
      * Peli-luokan konstruktori.

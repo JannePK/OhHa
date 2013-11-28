@@ -1,4 +1,4 @@
-package tetris1;
+package tetris1.logiikka;
 
 import java.util.Random;
 import java.lang.Math;
@@ -14,7 +14,7 @@ public class Palikka {
     /**
      * Tetrominojen kaikki mahdolliset muodot.
      */
-    enum Tetrominot {
+    public enum Tetrominot {
 
         EiMuotoa, ZMuoto, SMuoto, SuoraMuoto,
         TMuoto, NelioMuoto, LMuoto, ToinenLMuoto

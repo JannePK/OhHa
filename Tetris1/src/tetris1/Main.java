@@ -4,6 +4,8 @@
  */
 package tetris1;
 
+import tetris1.logiikka.Palikka;
+import tetris1.logiikka.Peli;
 import tetris1.kauttoliittyma.PelinAlustus;
 import java.awt.BorderLayout;
 

@@ -7,7 +7,7 @@ package tetris1.kauttoliittyma;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import tetris1.Peli;
+import tetris1.logiikka.Peli;
 
  /**
      * PelinAlustus-luokka alustaa pelin ja graafisen käyttöliittymän.

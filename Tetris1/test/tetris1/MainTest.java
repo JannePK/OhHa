@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tetris1.Palikka.Tetrominot;
+import tetris1.logiikka.Palikka.Tetrominot;
 
 
 public class MainTest {
