@@ -10,7 +10,7 @@ import tetris1.logiikka.Logiikka;
  * PelinAlustus-luokka alustaa pelin ja graafisen käyttöliittymän. <p>
  * Ohjelmoinnin harjoitustyö, periodi II, syksy 2013. <p>
  *
- * @author Janne Knuutinen, Helsingin yliopisto.
+ * @author JK.
  */
 public class PelinAlustus extends JFrame {
 

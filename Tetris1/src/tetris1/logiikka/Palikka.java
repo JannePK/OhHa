@@ -7,7 +7,7 @@ import java.lang.Math;
  * Palikka-luokka mahdollistaa palikka-olioiden luonnin ja sisältää hyödyllisiä
  * metodeja. <p> Ohjelmoinnin harjoitustyö, periodi II, syksy 2013. <p>
  *
- * @author Janne Knuutinen, Helsingin yliopisto.
+ * @author JK.
  */
 public class Palikka {
 
