@@ -1,31 +1,52 @@
 package tetris1.logiikka;
 
-
-
-
-
 import tetris1.logiikka.Palikka.Tetrominot;
 
-
-
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-
-import javax.swing.*;
-
+/**
+ * Logiikka-luokka sisältää tetriksen pelilogiikan. <p> Ohjelmoinnin
+ * harjoitustyö, periodi II, syksy 2013. <p>
+ *
+ * @author JK.
+ */
 public class Logiikka {
 
+    /**
+     * Luku, joka kertoo peliruudun leveyden.
+     */
     public final int RuudunLeveys = 25;
+    /**
+     * Luku, joka kertoo peliruudun korkeuden.
+     */
     public final int RuudunKorkeus = 25;
+    /**
+     * Palikkaolio jota käytetään pelissä.
+     */
     public Palikka pala;
+    /**
+     * Palikan tämänhetkinen x-koordinaatti.
+     */
     int nykyinenX = 0;
+    /**
+     * Palikan tämänhetkinen x-koordinaatti.
+     */
     int nykyinenY = 0;
+    /**
+     * Kertoo, onko palikka pudonnut vai ei.
+     */
     public boolean onkoPudonnut = false;
+    /**
+     * Kertoo, onko peli alkanut.
+     */
     public boolean onkoAlkanut = false;
+    /**
+     * Tetrominot joita käytetään pelissä.
+     */
     public Tetrominot[] muodot;
 
+    /**
+     * Logiikka-luokan konstruktori.
+     *
+     */
     public Logiikka() {
 
         pala = new Palikka();
@@ -82,6 +103,11 @@ public class Logiikka {
         boolean onkoAlkanut = onko;
     }
 
+    /**
+     * Metodi asettaa putoavat palaset muodot-taulukkoon, jotteivat ne katoaisi
+     * ruudulta.
+     *
+     */
     public void pudonnutPala() {
         for (int i = 0; i < 4; ++i) {
             int x = getNykyinenX() + getPala().x(i);
@@ -89,11 +115,17 @@ public class Logiikka {
             muodot[(y * RuudunLeveys) + x] = getPala().getMuoto();
         }
 
-        if (!getOnkoPudonnut()) {
-            
-        }
     }
 
+    /**
+     * Kertoo voiko palikkaa liikuttaa.
+     *
+     * @param uusiPala palikka-olio, jonka tilaa metodin halutaan tutkivan.
+     * @param uusiX kuinka paljon palikkaa halutaan liikuttaa leveyssuunnassa.
+     * @param uusiY kuinka paljon palikkaa halutaan liikuttaa pituussuunnassa.
+     * @return false, jos palan liikuttaminen johtaisi ruudun reunoihin tai
+     * toiseen palikkaan osumiseen, muuten true.
+     */
     public boolean voikoLiikuttaa(Palikka uusiPala, int uusiX, int uusiY) {
         for (int i = 0; i < 4; ++i) {
             int x = uusiX + uusiPala.x(i);
@@ -110,10 +142,14 @@ public class Logiikka {
         nykyinenX = uusiX;
         nykyinenY = uusiY;
 
-        
         return true;
     }
 
+    /**
+     * Metodi laskee palikan niin alas peliruudulla kuin mahdollista, ilman että
+     * se menee toisen palikan sisälle.
+     *
+     */
     public void akkiPudotus() {
         int uusiY = nykyinenY;
         while (uusiY > 0) {
@@ -122,9 +158,12 @@ public class Logiikka {
             }
             --uusiY;
         }
-        
     }
-
+    /**
+     * Metodi tyhjentää peliruudun, eli asettaa kaikki muodot
+     * EiMuotoa-muodoiksi.
+     *
+     */
     public void tyhjennaRuutu() {
         for (int i = 0; i < RuudunKorkeus * RuudunLeveys; ++i) {
             muodot[i] = Tetrominot.EiMuotoa;

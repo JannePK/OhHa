@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package tetris1;
+package tetris1.logiikka;
 
 import tetris1.logiikka.Palikka;
 import tetris1.logiikka.Logiikka;
@@ -76,14 +76,7 @@ boolean b = log.voikoLiikuttaa(p, 100, 100);
  boolean b2 = log.voikoLiikuttaa(p, 1, 1);
  assertEquals(false, b2 );
 }
-        @Test
-public void voikoLiikuttaaTest3() {
-Palikka p = new Palikka();
-
- boolean b2 = log.voikoLiikuttaa(p, 1, 1);
-  
- assertEquals(p, log.pala );
-}  
+    
    
       
     

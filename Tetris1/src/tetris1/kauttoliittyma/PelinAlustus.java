@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tetris1.kauttoliittyma;
 
 import java.awt.BorderLayout;
@@ -17,6 +14,9 @@ import tetris1.logiikka.Logiikka;
  */
 public class PelinAlustus extends JFrame {
 
+    /**
+     * statusbaria käytetään, jotta peliruutuun voitaisiin lisätä tekstiä.
+     */
     JLabel statusbar;
 
     /**
@@ -25,8 +25,6 @@ public class PelinAlustus extends JFrame {
      *
      */
     public PelinAlustus() {
-
-
 
         statusbar = new JLabel("Peli käynnissä");
         add(statusbar, BorderLayout.SOUTH);

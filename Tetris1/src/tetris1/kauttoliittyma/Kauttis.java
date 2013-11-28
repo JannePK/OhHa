@@ -1,9 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tetris1.kauttoliittyma;
 
+import javax.swing.Timer;
+import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -11,37 +10,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import tetris1.logiikka.Logiikka;
 import tetris1.logiikka.Palikka.Tetrominot;
 
 
-
+/**
+ * Kauttis-luokka toimii tetriksen kauttoliittymänä PelinAlustus-luokan kanssa. <p> Ohjelmoinnin harjoitustyö,
+ * periodi II, syksy 2013. <p>
+ *
+ * @author JK.
+ */
 public class Kauttis extends JPanel implements ActionListener {
-
+    /**
+     * statusbaria käytetään, jotta peliruutuun voitaisiin lisätä tekstiä.
+     */
     JLabel statusbar;
+    /**
+     * Olio, joka mahdollistaa pelitapahtumien tapahtumisen oikeaan aikaan.
+     */
     Timer ajastin;
+    /**
+     * Logiikka-olio, jota käytetään tämän luokan metodien apuna.
+     */
     Logiikka log;
 
     /**
-     * Peli-luokan konstruktori.
+     * Kauttis-luokan konstruktori.
      *
      */
     public Kauttis(Logiikka logiikka, PelinAlustus a) {
@@ -58,7 +54,11 @@ public class Kauttis extends JPanel implements ActionListener {
         log.tyhjennaRuutu();
 
     }
-
+    /**
+     * Metodi luo uuden palikan ja antaa sille uuden satunnaisen muodon. Jos 
+     * uutta palaa ei voi liikuttaa, lopetetaan peli.
+     *
+     */
     public void uusiPala() {
         log.getPala().asetaSatunnaismuoto();
         log.setNykyinenX(log.getRuudunLeveys() / 2 + 1);
@@ -73,7 +73,11 @@ public class Kauttis extends JPanel implements ActionListener {
 
         }
     }
-
+    /**
+     * Metodi katsoo, voidaanko palasta liikuttaa. Jos voidaan, kutsutaan 
+     * pudonnutPala() -metodia.
+     *
+     */
     public void pykalaAlas() {
         if (!log.voikoLiikuttaa(log.getPala(), log.getNykyinenX(), log.getNykyinenY() - 1)) {
 
@@ -118,7 +122,11 @@ public class Kauttis extends JPanel implements ActionListener {
             pykalaAlas();
         }
     }
-
+/**
+     * Metodi, joka vastaa palikoiden värittämisestä.
+     *
+     * @param g importattu grafiikka.
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -145,7 +153,15 @@ public class Kauttis extends JPanel implements ActionListener {
             }
         }
     }
-
+ /**
+     * Metodi piirtää neliön.
+     *
+     * @param g Graphics-olio, jota käytetään piirtämiseen.
+     * @param x kokonaisluku, joka vastaa piirrettävän neliön leveyttä.
+     * @param y kertoo piirrettävän neliön korkeuden.
+     * @param  muoto Tetrominon muoto; tarvitaan, jotta kaikista samanlaisista
+     * Tetrominoista tulisi saman värisiä.
+     */
     private void piirraNelio(Graphics g, int x, int y, Tetrominot muoto) {
 
 

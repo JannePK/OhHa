@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package tetris1;
+package tetris1.logiikka;
 
 import tetris1.logiikka.Palikka;
 import org.junit.After;
