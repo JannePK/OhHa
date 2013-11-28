@@ -91,7 +91,42 @@ for (int i = 0; i < peli.RuudunKorkeus * peli.RuudunLeveys; ++i) {
 
     assertEquals(muodot2, muodot );
 }  
-    
+       @Test
+public void voikoLiikuttaaTest() {
+Palikka p = new Palikka();
+p.asetaMuoto(Tetrominot.ZMuoto);
+
+boolean b = peli.voikoLiikuttaa(p, 4, 4);
+    assertEquals(true, b );
    
+} 
+     @Test
+public void voikoLiikuttaaTest2() {
+Palikka p = new Palikka();
+
+
+boolean b = peli.voikoLiikuttaa(p, 100, 100);
+    assertEquals(false, b );
+ boolean b2 = peli.voikoLiikuttaa(p, 1, 1);
+ assertEquals(true, b2 );
+}
+        @Test
+public void voikoLiikuttaaTest3() {
+Palikka p = new Palikka();
+
+ boolean b2 = peli.voikoLiikuttaa(p, 1, 1);
+  
+ assertEquals(p, peli.pala );
+}  
+   
+           @Test
+public void uusiPalaTest() {
+
+peli.onkoAlkanut = true;
+
+peli.uusiPala();
+    assertEquals(peli.voikoLiikuttaa(peli.pala, 1, 1), peli.onkoAlkanut );
+   
+}  
     
 }

@@ -19,15 +19,42 @@ import tetris1.Palikka.Tetrominot;
  * @author Janne Knuutinen, Helsingin yliopisto.
  */
 public class Peli extends JPanel implements ActionListener {
-
+    
+    /**
+     * Luku, joka kertoo peliruudun leveyden.
+     */
     final int RuudunLeveys = 25;
+    /**
+     * Luku, joka kertoo peliruudun korkeuden.
+     */
     final int RuudunKorkeus = 25;
+     /**
+     * Olio, joka mahdollistaa pelitapahtumien tapahtumisen oikeaan aikaan.
+     */
     Timer ajastin;
+     /**
+     * Kertoo, onko palikka pudonnut vai ei.
+     */
     boolean onkoPudonnut = false;
+     /**
+     * Kertoo, onko peli alkanut.
+     */
     boolean onkoAlkanut = false;
+     /**
+     * Palikan tämänhetkinen x-koordinaatti.
+     */
     int nykyinenX = 0;
+    /**
+     * Palikan tämänhetkinen x-koordinaatti.
+     */
     int nykyinenY = 0;
+    /**
+     * Palikkaolio jota käytetään pelissä.
+     */
     Palikka pala;
+    /**
+     * Tetrominot joita käytetään pelissä.
+     */
     Tetrominot[] muodot;
 
     /**
@@ -86,8 +113,6 @@ public class Peli extends JPanel implements ActionListener {
     /**
      * Metodi, joka vastaa palikoiden värittämisestä.
      *
-     * Use {@link #doMove(int, int, int, int)} to move a piece.
-     *
      * @param g importattu grafiikka.
      */
     @Override
@@ -117,6 +142,16 @@ public class Peli extends JPanel implements ActionListener {
         }
     }
 
+    
+     /**
+     * Metodi piirtää neliön.
+     *
+     * @param g Graphics-olio, jota käytetään piirtämiseen.
+     * @param x kokonaisluku, joka vastaa piirrettävän neliön leveyttä.
+     * @param y kertoo piirrettävän neliön korkeuden.
+     * @param  muoto Tetrominon muoto; tarvitaan, jotta kaikista samanlaisista
+     * Tetrominoista tulisi saman värisiä.
+     */
     private void piirraNelio(Graphics g, int x, int y, Tetrominot muoto) {
 
 
@@ -139,18 +174,46 @@ public class Peli extends JPanel implements ActionListener {
                 x + nelionLeveys() - 1, y + 1);
     }
 
+      /**
+     * Metodi laskee palikan niin alas peliruudulla kuin mahdollista,
+     * ilman että se menee toisen palikan sisälle.
+     *
+     */
+     public void akkiPudotus()
+    {
+        int uusiY = nykyinenY;
+        while (uusiY > 0) {
+            if (!voikoLiikuttaa(pala, nykyinenX, uusiY - 1))
+                break;
+            --uusiY;
+        }
+        pudonnutPala();
+    }
+    
+    /**
+     * Metodi katsoo, voidaanko palasta liikuttaa. Jos voidaan, kutsutaan 
+     * pudonnutPala() -metodia.
+     *
+     */
     private void pykalaAlas() {
         if (!voikoLiikuttaa(pala, nykyinenX, nykyinenY - 1)) {
             pudonnutPala();
         }
     }
-
+   /**
+     * Metodi tyhjentää peliruudun, eli asettaa kaikki muodot EiMuotoa-muodoiksi. 
+     *
+     */
     private void tyhjennaRuutu() {
         for (int i = 0; i < RuudunKorkeus * RuudunLeveys; ++i) {
             muodot[i] = Tetrominot.EiMuotoa;
         }
     }
-
+ /**
+     * Metodi asettaa putoavat palaset muodot-taulukkoon, jotteivat ne katoaisi 
+     * ruudulta. Lisäksi luodaan uusi pala jos palanen on jo ruudun alareunassa.
+     *
+     */
     private void pudonnutPala() {
         for (int i = 0; i < 4; ++i) {
             int x = nykyinenX + pala.x(i);
@@ -163,7 +226,12 @@ public class Peli extends JPanel implements ActionListener {
         }
     }
 
-    private void uusiPala() {
+      /**
+     * Metodi luo uuden palikan ja antaa sille uuden satunnaisen muodon. Jos 
+     * uutta palaa ei voi liikuttaa, lopetetaan peli.
+     *
+     */
+    public void uusiPala() {
         pala.asetaSatunnaismuoto();
         nykyinenX = RuudunLeveys / 2 + 1;
         nykyinenY = RuudunKorkeus - 1 + pala.minY();
@@ -203,6 +271,9 @@ public class Peli extends JPanel implements ActionListener {
         repaint();
         return true;
     }
+    
+     
+    
 
     class TAdapter extends KeyAdapter {
 
@@ -219,7 +290,7 @@ public class Peli extends JPanel implements ActionListener {
                     voikoLiikuttaa(pala, nykyinenX + 1, nykyinenY);
                     break;
                 case KeyEvent.VK_DOWN:
-                    voikoLiikuttaa(pala.kaannaOikealle(), nykyinenX, nykyinenY);
+                    akkiPudotus();
                     break;
                 case KeyEvent.VK_UP:
                     voikoLiikuttaa(pala.kaannaVasemmalle(), nykyinenX, nykyinenY);

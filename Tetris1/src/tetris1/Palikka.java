@@ -3,41 +3,52 @@ package tetris1;
 import java.util.Random;
 import java.lang.Math;
 
- /**
-     * Palikka-luokka mahdollistaa palikka-olioiden luonnin ja sisältää hyödyllisiä metodeja.
-     * <p>
-     * Ohjelmoinnin harjoitustyö, periodi II, syksy 2013.
-     * <p>
-     * @author Janne Knuutinen,
-     * Helsingin yliopisto.
-     */
-
+/**
+ * Palikka-luokka mahdollistaa palikka-olioiden luonnin ja sisältää hyödyllisiä
+ * metodeja. <p> Ohjelmoinnin harjoitustyö, periodi II, syksy 2013. <p>
+ *
+ * @author Janne Knuutinen, Helsingin yliopisto.
+ */
 public class Palikka {
 
+    /**
+     * Tetrominojen kaikki mahdolliset muodot.
+     */
     enum Tetrominot {
 
         EiMuotoa, ZMuoto, SMuoto, SuoraMuoto,
         TMuoto, NelioMuoto, LMuoto, ToinenLMuoto
     };
+    /**
+     * Tetrominon muoto, esimerkiksi nelioMuoto tai TMuoto.
+     */
     private Tetrominot palanMuoto;
+    /**
+     * Palojen sijainti määritetään näiden koordinaattien avulla.
+     */
     private int koordinaatit[][];
+    /**
+     * Taulukko, jossa on lueteltu eri koordinaatit.
+     */
     private int[][][] koordinaattiTaulu;
 
-/**
- * Palikan konstruktori, asettaa palikka-oliolle koordinaatit ja muodon Tetrominot.EiMuotoa.
- *
- */
+    /**
+     * Palikan konstruktori, asettaa palikka-oliolle koordinaatit ja muodon
+     * Tetrominot.EiMuotoa.
+     *
+     */
     public Palikka() {
 
         koordinaatit = new int[4][2];
         asetaMuoto(Tetrominot.EiMuotoa);
 
     }
-/**
- * Asettaa palikkaoliolle halutun muodon.
- *
- * @param muoto se muoto, jonka metodi asettaa palikalle.
- */
+
+    /**
+     * Asettaa palikkaoliolle halutun muodon.
+     *
+     * @param muoto se muoto, jonka metodi asettaa palikalle.
+     */
     public void asetaMuoto(Tetrominot muoto) {
 
         koordinaattiTaulu = new int[][][]{
@@ -60,7 +71,6 @@ public class Palikka {
 
     }
 
-    
     public void setX(int index, int x) {
         koordinaatit[index][0] = x;
     }
@@ -84,11 +94,12 @@ public class Palikka {
     public Tetrominot getEiMuotoa() {
         return Tetrominot.EiMuotoa;
     }
-/**
- * Asettaa palikka-oliolle satunnaisesti valitun muodon käyttäen asetaMuoto-metodia.
- *
- */
-    
+
+    /**
+     * Asettaa palikka-oliolle satunnaisesti valitun muodon käyttäen
+     * asetaMuoto-metodia.
+     *
+     */
     public void asetaSatunnaismuoto() {
         Random r = new Random();
         int x = Math.abs(r.nextInt()) % 7 + 1;
@@ -96,11 +107,11 @@ public class Palikka {
         asetaMuoto(arvot[x]);
     }
 
-/**
- * Metodi palauttaa x-koordinaattien pienimmän arvon.
- *
- * @return pienin x-koordinaattien arvo.
- */
+    /**
+     * Metodi palauttaa x-koordinaattien pienimmän arvon.
+     *
+     * @return pienin x-koordinaattien arvo.
+     */
     public int minX() {
         int m = koordinaatit[0][0];
         for (int i = 0; i < 4; i++) {
@@ -110,11 +121,10 @@ public class Palikka {
     }
 
     /**
- * Metodi palauttaa y-koordinaattien pienimmän arvon.
- *
- * @return pienin y-koordinaattien arvo.
- */
-    
+     * Metodi palauttaa y-koordinaattien pienimmän arvon.
+     *
+     * @return pienin y-koordinaattien arvo.
+     */
     public int minY() {
         int m = koordinaatit[0][1];
         for (int i = 0; i < 4; i++) {
@@ -122,11 +132,13 @@ public class Palikka {
         }
         return m;
     }
- /**
- * Metodi muuttaa palikka-olion koordinaatteja niin, että se kääntyy vasemmalle. Neliön muotoisia palikoita ei tarvitse kääntää.
- *
- * @return uusi käännetty palikka.
- */
+
+    /**
+     * Metodi muuttaa palikka-olion koordinaatteja niin, että se kääntyy
+     * vasemmalle. Neliön muotoisia palikoita ei tarvitse kääntää.
+     *
+     * @return uusi käännetty palikka.
+     */
     public Palikka kaannaVasemmalle() {
         if (palanMuoto == Tetrominot.NelioMuoto) {
             return this;
@@ -140,11 +152,13 @@ public class Palikka {
         }
         return tulos;
     }
- /**
- * Metodi muuttaa palikka-olion koordinaatteja niin, että se kääntyy oikealle. Neliön muotoisia palikoita ei tarvitse kääntää.
- *
- * @return uusi käännetty palikka.
- */
+
+    /**
+     * Metodi muuttaa palikka-olion koordinaatteja niin, että se kääntyy
+     * oikealle. Neliön muotoisia palikoita ei tarvitse kääntää.
+     *
+     * @return uusi käännetty palikka.
+     */
     public Palikka kaannaOikealle() {
         if (palanMuoto == Tetrominot.NelioMuoto) {
             return this;
@@ -158,9 +172,9 @@ public class Palikka {
         }
         return pala;
     }
-    
-    public int[][] getKoordinaatit(){
-   
+
+    public int[][] getKoordinaatit() {
+
         return koordinaatit;
     }
 }

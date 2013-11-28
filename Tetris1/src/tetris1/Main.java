@@ -4,6 +4,7 @@
  */
 package tetris1;
 
+import tetris1.kauttoliittyma.PelinAlustus;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
