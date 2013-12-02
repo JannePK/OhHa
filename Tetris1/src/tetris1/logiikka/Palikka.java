@@ -28,7 +28,7 @@ public class Palikka {
      */
     private int koordinaatit[][];
     /**
-     * Taulukko, jossa on lueteltu eri koordinaatit.
+     * Taulukko, jossa on lueteltu kaikki mahdolliset palikoiden koordinaatit.
      */
     private int[][][] koordinaattiTaulu;
 
@@ -45,7 +45,7 @@ public class Palikka {
     }
 
     /**
-     * Asettaa palikkaoliolle halutun muodon.
+     * Asettaa palikkaoliolle halutun muodon, joka valitaan koordinaattitaulukosta.
      *
      * @param muoto se muoto, jonka metodi asettaa palikalle.
      */

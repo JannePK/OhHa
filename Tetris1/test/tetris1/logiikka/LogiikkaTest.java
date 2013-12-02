@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import tetris1.kayttoliittyma.Kayttis;
+import tetris1.kayttoliittyma.PelinAlustus;
 import tetris1.logiikka.Palikka.Tetrominot;
 
 /**
@@ -21,11 +23,14 @@ import tetris1.logiikka.Palikka.Tetrominot;
  * @author Janne
  */
 public class LogiikkaTest {
+   PelinAlustus a;
+    Kayttis k;
     Logiikka log;
     
     public LogiikkaTest() {
-        
-        log = new Logiikka();
+        a = new PelinAlustus();
+        k = new Kayttis(a);
+        log = new Logiikka(k);
         
     }
     
@@ -40,7 +45,11 @@ public class LogiikkaTest {
     
     @Before
     public void setUp() {
-        log = new Logiikka();
+        
+         a = new PelinAlustus();
+        k = new Kayttis(a);
+        log = new Logiikka(k);
+        
         
     }
     
@@ -77,7 +86,15 @@ boolean b = log.voikoLiikuttaa(p, 100, 100);
  assertEquals(false, b2 );
 }
     
+             @Test
+public void uusiPalaTest() {
+
+log.onkoAlkanut = true;
+
+log.uusiPala();
+    assertEquals(log.voikoLiikuttaa(log.pala, 1, 1), log.onkoAlkanut );
    
+}  
       
     
 }

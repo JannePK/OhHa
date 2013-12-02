@@ -1,5 +1,6 @@
 package tetris1.logiikka;
 
+import tetris1.kayttoliittyma.Kayttis;
 import tetris1.logiikka.Palikka.Tetrominot;
 
 /**
@@ -13,11 +14,11 @@ public class Logiikka {
     /**
      * Luku, joka kertoo peliruudun leveyden.
      */
-    public final int RuudunLeveys = 25;
+    public final int RuudunLeveys = 12;
     /**
      * Luku, joka kertoo peliruudun korkeuden.
      */
-    public final int RuudunKorkeus = 25;
+    public final int RuudunKorkeus = 24;
     /**
      * Palikkaolio jota käytetään pelissä.
      */
@@ -42,22 +43,32 @@ public class Logiikka {
      * Tetrominot joita käytetään pelissä.
      */
     public Tetrominot[] muodot;
+    /**
+     * Poistettujen rivien määrä.
+     */
+    public int rivejaPoistettu = 0;
+    /**
+     * Kayttis-luokan metodeja käytetään tässäkin luokassa.
+     */
+    Kayttis kayttis;
+    /**
+     * Kertoo, onko peli pausella.
+     */
+    public boolean onkoPaussilla = false;
 
     /**
      * Logiikka-luokan konstruktori.
      *
      */
-    public Logiikka() {
-
+    public Logiikka(Kayttis k) {
+        this.kayttis = k;
         pala = new Palikka();
 
         muodot = new Tetrominot[RuudunLeveys * RuudunKorkeus];
 
     }
 
-    public Tetrominot[] getTetrominot() {
-        return muodot;
-    }
+    
 
     public Palikka getPala() {
         return pala;
@@ -95,6 +106,10 @@ public class Logiikka {
         return onkoAlkanut;
     }
 
+    public boolean getOnkoPaussilla() {
+        return onkoPaussilla;
+    }
+
     public void setOnkoPudonnut(boolean onko) {
         boolean onkoPudonnut = onko;
     }
@@ -103,9 +118,97 @@ public class Logiikka {
         boolean onkoAlkanut = onko;
     }
 
+    public void paussaa() {
+
+        onkoPaussilla = !onkoPaussilla;
+        if (onkoPaussilla) {
+            kayttis.getAjastin().stop();
+            kayttis.getStatusBar().setText("PAUSED");
+        } else {
+            kayttis.getAjastin().start();
+            kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu));
+        }
+        kayttis.repaint();
+    }
+
+    /**
+     * Metodi luo uuden palikan ja antaa sille uuden satunnaisen muodon. Jos
+     * uutta palaa ei voi liikuttaa, lopetetaan peli.
+     *
+     */
+    public void uusiPala() {
+        getPala().asetaSatunnaismuoto();
+        setNykyinenX(getRuudunLeveys() / 2 + 1);
+        setNykyinenY(getRuudunKorkeus() - 1 + getPala().minY());
+
+        if (!voikoLiikuttaa(getPala(), getNykyinenX(), getNykyinenY())) {
+
+            getPala().asetaMuoto(Tetrominot.EiMuotoa);
+
+            kayttis.getAjastin().stop();
+            setOnkoAlkanut(false);
+
+            if (rivejaPoistettu == 0) {
+                kayttis.getStatusBar().setText("Peli päättyi. Et saanut poistettua yhtään riviä. Heikko tulos.");
+            } else if (rivejaPoistettu >= 1 && rivejaPoistettu < 4) {
+                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua vain "
+                        + String.valueOf(rivejaPoistettu) + " riviä.");
+            } else if (rivejaPoistettu >= 4 && rivejaPoistettu < 10) {
+                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua "
+                        + String.valueOf(rivejaPoistettu) + " riviä. Pystyt parempaankin...");
+            } else if (rivejaPoistettu >= 10 && rivejaPoistettu < 20) {
+                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua "
+                        + String.valueOf(rivejaPoistettu) + " riviä. Ei hassumpaa!");
+            } else if (rivejaPoistettu >= 20 && rivejaPoistettu < 30) {
+                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua kunnioitettavat "
+                        + String.valueOf(rivejaPoistettu) + " riviä. Loistava tulos!");
+            } else if (rivejaPoistettu >= 30) {
+                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua käsittämättömät "
+                        + String.valueOf(rivejaPoistettu) + " riviä. All heil the Tetris God!");
+            }
+        }
+    }
+
+    /**
+     * Metodi tutkii, löytyykö peliruudulta täysiä rivejä. Jos löytyy, rivit
+     * poistetaan ja rivejaPoistettu-muuttujan arvoa kasvatetaan.
+     *
+     */
+    public void poistaTaydetRivit() {
+        int taysiaRiveja = 0;
+
+        for (int i = RuudunKorkeus - 1; i >= 0; --i) {
+            boolean RiviTaysi = true;
+
+            for (int j = 0; j < RuudunLeveys; ++j) {
+                if (tetrominonMuoto(j, i) == Tetrominot.EiMuotoa) {
+                    RiviTaysi = false;
+                    break;
+                }
+            }
+
+            if (RiviTaysi) {
+                ++taysiaRiveja;
+                for (int k = i; k < RuudunKorkeus - 1; ++k) {
+                    for (int j = 0; j < RuudunLeveys; ++j) {
+                        muodot[(k * RuudunLeveys) + j] = tetrominonMuoto(j, k + 1);
+                    }
+                }
+            }
+        }
+
+        if (taysiaRiveja > 0) {
+            rivejaPoistettu += taysiaRiveja;
+            kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu));
+            pala.asetaMuoto(Tetrominot.EiMuotoa);
+            kayttis.repaint();
+
+        }
+    }
+
     /**
      * Metodi asettaa putoavat palaset muodot-taulukkoon, jotteivat ne katoaisi
-     * ruudulta.
+     * ruudulta. Lisäksi se kutsuu poistaTaydetRivit-metodia.
      *
      */
     public void pudonnutPala() {
@@ -113,6 +216,11 @@ public class Logiikka {
             int x = getNykyinenX() + getPala().x(i);
             int y = getNykyinenY() - getPala().y(i);
             muodot[(y * RuudunLeveys) + x] = getPala().getMuoto();
+        }
+        poistaTaydetRivit();
+
+        if (!onkoPudonnut) {
+            uusiPala();
         }
 
     }
@@ -141,7 +249,7 @@ public class Logiikka {
         pala = uusiPala;
         nykyinenX = uusiX;
         nykyinenY = uusiY;
-
+        kayttis.repaint();
         return true;
     }
 
@@ -158,7 +266,9 @@ public class Logiikka {
             }
             --uusiY;
         }
+        pudonnutPala();
     }
+
     /**
      * Metodi tyhjentää peliruudun, eli asettaa kaikki muodot
      * EiMuotoa-muodoiksi.

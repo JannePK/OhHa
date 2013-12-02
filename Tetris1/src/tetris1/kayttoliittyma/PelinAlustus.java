@@ -1,5 +1,5 @@
 
-package tetris1.kauttoliittyma;
+package tetris1.kayttoliittyma;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -26,10 +26,10 @@ public class PelinAlustus extends JFrame {
      */
     public PelinAlustus() {
 
-        statusbar = new JLabel("Peli käynnissä");
+        statusbar = new JLabel("Rivejä poistettu: 0");
         add(statusbar, BorderLayout.SOUTH);
-        Logiikka logiikka = new Logiikka();
-        Kauttis peli = new Kauttis(logiikka, this);
+        
+        Kayttis peli = new Kayttis(this);
         add(peli);
         peli.starttaa();
         setSize(400, 600);

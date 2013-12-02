@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package tetris1.kauttoliittyma;
+package tetris1.kayttoliittyma;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import tetris1.kauttoliittyma.Kauttis;
-import tetris1.kauttoliittyma.PelinAlustus;
 import tetris1.logiikka.Logiikka;
 import tetris1.logiikka.Palikka;
 
@@ -19,14 +17,15 @@ import tetris1.logiikka.Palikka;
  *
  * @author Janne
  */
-public class KauttisTest {
-    Kauttis kauttis;
+public class KayttisTest {
+    Kayttis kayttis;
     Logiikka log;
     PelinAlustus alustus;
-    public KauttisTest() {
-        log = new Logiikka();
+    public KayttisTest() {
+        
         alustus = new PelinAlustus();
-  kauttis = new Kauttis(log, alustus);
+  kayttis = new Kayttis(alustus);
+  log = new Logiikka(kayttis);
     }
     
     @BeforeClass
@@ -49,34 +48,34 @@ public class KauttisTest {
         @Test
 public void nelionLeveysTest() {
 
-int leveys = kauttis.nelionLeveys();
+int leveys = kayttis.nelionLeveys();
     assertEquals(0, leveys );
 }
       @Test
 public void nelionKorkeusTest() {
 
-int leveys = kauttis.nelionKorkeus();
+int leveys = kayttis.nelionKorkeus();
     assertEquals(0, leveys );
 }
       
          @Test
 public void starttiTest() {
 
-kauttis.starttaa();
+kayttis.starttaa();
 boolean alkanut = log.onkoAlkanut;
     assertEquals(false, alkanut );
 }     
     @Test
 public void starttiTest2() {
 
-kauttis.starttaa();
+kayttis.starttaa();
 boolean alkanut = log.onkoPudonnut;
     assertEquals(false, alkanut );
 }     
      @Test
 public void starttiTest3() {
 
-kauttis.starttaa();
+kayttis.starttaa();
 Palikka.Tetrominot[] muodot = log.muodot;
 Palikka.Tetrominot[] muodot2 = new Palikka.Tetrominot[log.RuudunKorkeus*log.RuudunLeveys];
 for (int i = 0; i < log.RuudunKorkeus * log.RuudunLeveys; ++i) {
@@ -91,7 +90,7 @@ public void uusiPalaTest() {
 
 log.onkoAlkanut = true;
 
-kauttis.uusiPala();
+log.uusiPala();
     assertEquals(log.voikoLiikuttaa(log.pala, 1, 1), log.onkoAlkanut );
    
 }

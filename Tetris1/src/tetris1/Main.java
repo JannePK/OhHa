@@ -6,7 +6,7 @@ package tetris1;
 
 import tetris1.logiikka.Palikka;
 import tetris1.logiikka.Logiikka;
-import tetris1.kauttoliittyma.PelinAlustus;
+import tetris1.kayttoliittyma.PelinAlustus;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-Logiikka peli1 = new Logiikka();
+
         Palikka palikka = new Palikka();
         System.out.println(palikka.getMuoto());
         palikka.asetaSatunnaismuoto();

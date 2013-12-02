@@ -1,5 +1,4 @@
-
-package tetris1.kauttoliittyma;
+package tetris1.kayttoliittyma;
 
 import javax.swing.Timer;
 import javax.swing.JLabel;
@@ -15,14 +14,14 @@ import javax.swing.JPanel;
 import tetris1.logiikka.Logiikka;
 import tetris1.logiikka.Palikka.Tetrominot;
 
-
 /**
- * Kauttis-luokka toimii tetriksen kauttoliittymänä PelinAlustus-luokan kanssa. <p> Ohjelmoinnin harjoitustyö,
- * periodi II, syksy 2013. <p>
+ * Kauttis-luokka toimii tetriksen kauttoliittymänä PelinAlustus-luokan kanssa.
+ * <p> Ohjelmoinnin harjoitustyö, periodi II, syksy 2013. <p>
  *
  * @author JK.
  */
-public class Kauttis extends JPanel implements ActionListener {
+public class Kayttis extends JPanel implements ActionListener {
+
     /**
      * statusbaria käytetään, jotta peliruutuun voitaisiin lisätä tekstiä.
      */
@@ -40,9 +39,9 @@ public class Kauttis extends JPanel implements ActionListener {
      * Kauttis-luokan konstruktori.
      *
      */
-    public Kauttis(Logiikka logiikka, PelinAlustus a) {
+    public Kayttis(PelinAlustus a) {
 
-        this.log = logiikka;
+        this.log = new Logiikka(this);
 
         setFocusable(true);
         ajastin = new Timer(200, this);
@@ -54,39 +53,25 @@ public class Kauttis extends JPanel implements ActionListener {
         log.tyhjennaRuutu();
 
     }
-    /**
-     * Metodi luo uuden palikan ja antaa sille uuden satunnaisen muodon. Jos 
-     * uutta palaa ei voi liikuttaa, lopetetaan peli.
-     *
-     */
-    public void uusiPala() {
-        log.getPala().asetaSatunnaismuoto();
-        log.setNykyinenX(log.getRuudunLeveys() / 2 + 1);
-        log.setNykyinenY(log.getRuudunKorkeus() - 1 + log.getPala().minY());
 
-        if (!log.voikoLiikuttaa(log.getPala(), log.getNykyinenX(), log.getNykyinenY())) {
-            repaint();
-            log.getPala().asetaMuoto(Tetrominot.EiMuotoa);
-
-            ajastin.stop();
-            log.setOnkoAlkanut(false);
-
-        }
+    public JLabel getStatusBar() {
+        return statusbar;
     }
+
+    public Timer getAjastin() {
+        return ajastin;
+    }
+
+
     /**
-     * Metodi katsoo, voidaanko palasta liikuttaa. Jos voidaan, kutsutaan 
+     * Metodi katsoo, voidaanko palasta liikuttaa. Jos voidaan, kutsutaan
      * pudonnutPala() -metodia.
      *
      */
     public void pykalaAlas() {
         if (!log.voikoLiikuttaa(log.getPala(), log.getNykyinenX(), log.getNykyinenY() - 1)) {
-
             log.pudonnutPala();
-            if (!log.getOnkoPudonnut()) {
-                uusiPala();
-            }
         }
-        repaint();
     }
 
     /**
@@ -96,12 +81,16 @@ public class Kauttis extends JPanel implements ActionListener {
      */
     public void starttaa() {
 
+        if (log.getOnkoPaussilla()) {
+            return;
+        }
+
         log.setOnkoAlkanut(true);
         log.setOnkoPudonnut(false);
 
         log.tyhjennaRuutu();
 
-        uusiPala();
+        log.uusiPala();
 
         ajastin.start();
 
@@ -111,18 +100,14 @@ public class Kauttis extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (log.getOnkoPudonnut()) {
             log.setOnkoPudonnut(false);
-            uusiPala();
-            if (!log.voikoLiikuttaa(log.getPala(), log.getNykyinenX(), log.getNykyinenX())) {
-                repaint();
-                ajastin.stop();
-
-            }
+            log.uusiPala();
 
         } else {
             pykalaAlas();
         }
     }
-/**
+
+    /**
      * Metodi, joka vastaa palikoiden värittämisestä.
      *
      * @param g importattu grafiikka.
@@ -153,13 +138,14 @@ public class Kauttis extends JPanel implements ActionListener {
             }
         }
     }
- /**
+
+    /**
      * Metodi piirtää neliön.
      *
      * @param g Graphics-olio, jota käytetään piirtämiseen.
      * @param x kokonaisluku, joka vastaa piirrettävän neliön leveyttä.
      * @param y kertoo piirrettävän neliön korkeuden.
-     * @param  muoto Tetrominon muoto; tarvitaan, jotta kaikista samanlaisista
+     * @param muoto Tetrominon muoto; tarvitaan, jotta kaikista samanlaisista
      * Tetrominoista tulisi saman värisiä.
      */
     private void piirraNelio(Graphics g, int x, int y, Tetrominot muoto) {
@@ -199,6 +185,14 @@ public class Kauttis extends JPanel implements ActionListener {
 
             int koodi = e.getKeyCode();
 
+            if (koodi == 'p' || koodi == 'P') {
+                log.paussaa();
+                return;
+            }
+
+            if (log.getOnkoPaussilla()) {
+                return;
+            }
             switch (koodi) {
                 case KeyEvent.VK_LEFT:
                     log.voikoLiikuttaa(log.getPala(), log.getNykyinenX() - 1, log.getNykyinenY());
@@ -216,8 +210,14 @@ public class Kauttis extends JPanel implements ActionListener {
 
                     break;
 
+                case 'a':
+                    pykalaAlas();
+                    break;
+                case 'A':
+                    pykalaAlas();
+                    break;
+                    
             }
-
         }
     }
 }
