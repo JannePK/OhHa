@@ -62,17 +62,10 @@ public class Kayttis extends JPanel implements ActionListener {
         return ajastin;
     }
 
-
-    /**
-     * Metodi katsoo, voidaanko palasta liikuttaa. Jos voidaan, kutsutaan
-     * pudonnutPala() -metodia.
-     *
-     */
-    public void pykalaAlas() {
-        if (!log.voikoLiikuttaa(log.getPala(), log.getNykyinenX(), log.getNykyinenY() - 1)) {
-            log.pudonnutPala();
-        }
+    public Logiikka getLogiikka(){
+        return this.log;
     }
+
 
     /**
      * Metodi aloittaa pelin tyhjentämällä ruudun, luomalla uuden palan ja
@@ -103,7 +96,7 @@ public class Kayttis extends JPanel implements ActionListener {
             log.uusiPala();
 
         } else {
-            pykalaAlas();
+            log.pykalaAlas();
         }
     }
 
@@ -121,10 +114,10 @@ public class Kayttis extends JPanel implements ActionListener {
 
         for (int i = 0; i < log.getRuudunKorkeus(); ++i) {
             for (int j = 0; j < log.getRuudunLeveys(); ++j) {
-                Tetrominot shape = log.tetrominonMuoto(j, log.getRuudunKorkeus() - i - 1);
-                if (shape != Tetrominot.EiMuotoa) {
+                Tetrominot palanmuoto = log.tetrominonMuoto(j, log.getRuudunKorkeus() - i - 1);
+                if (palanmuoto != Tetrominot.EiMuotoa) {
                     piirraNelio(g, 0 + j * nelionLeveys(),
-                            huippu + i * nelionKorkeus(), shape);
+                            huippu + i * nelionKorkeus(), palanmuoto);
                 }
             }
         }
@@ -211,10 +204,10 @@ public class Kayttis extends JPanel implements ActionListener {
                     break;
 
                 case 'a':
-                    pykalaAlas();
+                    log.pykalaAlas();
                     break;
                 case 'A':
-                    pykalaAlas();
+                    log.pykalaAlas();
                     break;
                     
             }

@@ -19,13 +19,13 @@ import tetris1.logiikka.Palikka;
  */
 public class KayttisTest {
     Kayttis kayttis;
-    Logiikka log;
+   
     PelinAlustus alustus;
     public KayttisTest() {
         
         alustus = new PelinAlustus();
   kayttis = new Kayttis(alustus);
-  log = new Logiikka(kayttis);
+  
     }
     
     @BeforeClass
@@ -62,36 +62,28 @@ int leveys = kayttis.nelionKorkeus();
 public void starttiTest() {
 
 kayttis.starttaa();
-boolean alkanut = log.onkoAlkanut;
+boolean alkanut = kayttis.getLogiikka().onkoAlkanut;
     assertEquals(false, alkanut );
 }     
     @Test
 public void starttiTest2() {
 
 kayttis.starttaa();
-boolean alkanut = log.onkoPudonnut;
+boolean alkanut = kayttis.getLogiikka().onkoPudonnut;
     assertEquals(false, alkanut );
 }     
      @Test
 public void starttiTest3() {
 
 kayttis.starttaa();
-Palikka.Tetrominot[] muodot = log.muodot;
-Palikka.Tetrominot[] muodot2 = new Palikka.Tetrominot[log.RuudunKorkeus*log.RuudunLeveys];
-for (int i = 0; i < log.RuudunKorkeus * log.RuudunLeveys; ++i) {
+Palikka.Tetrominot[] muodot = kayttis.getLogiikka().muodot;
+Palikka.Tetrominot[] muodot2 = new Palikka.Tetrominot[kayttis.getLogiikka().RuudunKorkeus*kayttis.getLogiikka().RuudunLeveys];
+for (int i = 0; i < kayttis.getLogiikka().RuudunKorkeus * kayttis.getLogiikka().RuudunLeveys; ++i) {
             muodot2[i] = Palikka.Tetrominot.EiMuotoa;
         }
 
     assertEquals(muodot2, muodot );
 }
      
-            @Test
-public void uusiPalaTest() {
-
-log.onkoAlkanut = true;
-
-log.uusiPala();
-    assertEquals(log.voikoLiikuttaa(log.pala, 1, 1), log.onkoAlkanut );
-   
-}
+       
 }

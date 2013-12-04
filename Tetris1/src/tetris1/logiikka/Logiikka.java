@@ -118,6 +118,16 @@ public class Logiikka {
         boolean onkoAlkanut = onko;
     }
 
+    /**
+     * Metodi katsoo, voidaanko palasta liikuttaa. Jos voidaan, kutsutaan
+     * pudonnutPala() -metodia.
+     *
+     */
+    public void pykalaAlas() {
+        if (!voikoLiikuttaa(getPala(), getNykyinenX(), getNykyinenY() - 1)) {
+            pudonnutPala();
+        }
+    }
     public void paussaa() {
 
         onkoPaussilla = !onkoPaussilla;

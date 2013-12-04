@@ -85,6 +85,15 @@ boolean b = log.voikoLiikuttaa(p, 100, 100);
  boolean b2 = log.voikoLiikuttaa(p, 1, 1);
  assertEquals(false, b2 );
 }
+     
+         @Test
+public void voikoLiikuttaaTest3() {
+Palikka p = new Palikka();
+  log.voikoLiikuttaa(p, 2, 3);
+
+    assertEquals(0, log.getNykyinenX() );
+   
+}   
     
              @Test
 public void uusiPalaTest() {
@@ -92,9 +101,19 @@ public void uusiPalaTest() {
 log.onkoAlkanut = true;
 
 log.uusiPala();
-    assertEquals(log.voikoLiikuttaa(log.pala, 1, 1), log.onkoAlkanut );
+    assertEquals(true , log.onkoAlkanut );
    
 }  
+           @Test
+public void poistaTaydetRivitTest() {
+log.rivejaPoistettu = 0;
+log.poistaTaydetRivit();
+
+
+    assertEquals(log.RuudunKorkeus , log.rivejaPoistettu );
+   
+}         
+             
       
     
 }
