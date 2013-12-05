@@ -68,7 +68,9 @@ public class Logiikka {
 
     }
 
-    
+     public void nollaaRivit() {
+        this.rivejaPoistettu = 0;
+    }
 
     public Palikka getPala() {
         return pala;

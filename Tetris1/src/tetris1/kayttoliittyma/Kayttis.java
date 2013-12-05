@@ -209,6 +209,16 @@ public class Kayttis extends JPanel implements ActionListener {
                 case 'A':
                     log.pykalaAlas();
                     break;
+                    case 's':
+                    starttaa();
+                    log.nollaaRivit();
+                    statusbar.setText("Rivejä poistettu: " + String.valueOf(log.rivejaPoistettu));
+                    break;
+                case 'S':
+                    starttaa();
+                     log.nollaaRivit();
+                     statusbar.setText("Rivejä poistettu: " + String.valueOf(log.rivejaPoistettu));
+                    break;
                     
             }
         }
