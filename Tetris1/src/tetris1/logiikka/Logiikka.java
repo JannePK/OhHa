@@ -55,6 +55,10 @@ public class Logiikka {
      * Kertoo, onko peli pausella.
      */
     public boolean onkoPaussilla = false;
+    /**
+     * Pelaajan pisteet.
+     */
+    public int pisteet = 0;
 
     /**
      * Logiikka-luokan konstruktori.
@@ -68,8 +72,9 @@ public class Logiikka {
 
     }
 
-     public void nollaaRivit() {
+    public void nollaaRivitJaPisteet() {
         this.rivejaPoistettu = 0;
+        this.pisteet = 0;
     }
 
     public Palikka getPala() {
@@ -130,6 +135,7 @@ public class Logiikka {
             pudonnutPala();
         }
     }
+
     public void paussaa() {
 
         onkoPaussilla = !onkoPaussilla;
@@ -138,17 +144,19 @@ public class Logiikka {
             kayttis.getStatusBar().setText("PAUSED");
         } else {
             kayttis.getAjastin().start();
-            kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu));
+            kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu) + "    Pisteet: " + String.valueOf(pisteet));
         }
         kayttis.repaint();
     }
 
     /**
      * Metodi luo uuden palikan ja antaa sille uuden satunnaisen muodon. Jos
-     * uutta palaa ei voi liikuttaa, lopetetaan peli.
+     * uutta palaa ei voi liikuttaa, lopetetaan peli ja näytetään asiaankuuluva
+     * viesti.
      *
      */
     public void uusiPala() {
+
         getPala().asetaSatunnaismuoto();
         setNykyinenX(getRuudunLeveys() / 2 + 1);
         setNykyinenY(getRuudunKorkeus() - 1 + getPala().minY());
@@ -163,27 +171,27 @@ public class Logiikka {
             if (rivejaPoistettu == 0) {
                 kayttis.getStatusBar().setText("Peli päättyi. Et saanut poistettua yhtään riviä. Heikko tulos.");
             } else if (rivejaPoistettu >= 1 && rivejaPoistettu < 4) {
-                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua vain "
-                        + String.valueOf(rivejaPoistettu) + " riviä.");
+                kayttis.getStatusBar().setText("Peli päättyi. Pisteesi: "
+                        + String.valueOf(pisteet));
             } else if (rivejaPoistettu >= 4 && rivejaPoistettu < 10) {
-                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua "
-                        + String.valueOf(rivejaPoistettu) + " riviä. Pystyt parempaankin...");
+                kayttis.getStatusBar().setText("Peli päättyi. Pisteesi: "
+                        + String.valueOf(pisteet) + ". Pystyt parempaankin...");
             } else if (rivejaPoistettu >= 10 && rivejaPoistettu < 20) {
-                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua "
-                        + String.valueOf(rivejaPoistettu) + " riviä. Ei hassumpaa!");
+                kayttis.getStatusBar().setText("Peli päättyi. Pisteesi: "
+                        + String.valueOf(pisteet) + ". Ei hassumpaa!");
             } else if (rivejaPoistettu >= 20 && rivejaPoistettu < 30) {
-                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua kunnioitettavat "
-                        + String.valueOf(rivejaPoistettu) + " riviä. Loistava tulos!");
+                kayttis.getStatusBar().setText("Peli päättyi. Pisteesi: "
+                        + String.valueOf(pisteet) + ". Loistava tulos!");
             } else if (rivejaPoistettu >= 30) {
-                kayttis.getStatusBar().setText("Peli päättyi. Sait poistettua käsittämättömät "
-                        + String.valueOf(rivejaPoistettu) + " riviä. All heil the Tetris God!");
+                kayttis.getStatusBar().setText("Peli päättyi. Pisteesi: "
+                        + String.valueOf(pisteet) + ". All heil the Tetris God!");
             }
         }
     }
 
     /**
      * Metodi tutkii, löytyykö peliruudulta täysiä rivejä. Jos löytyy, rivit
-     * poistetaan ja rivejaPoistettu-muuttujan arvoa kasvatetaan.
+     * poistetaan ja rivejaPoistettu- ja pisteet -muuttujien arvoa kasvatetaan.
      *
      */
     public void poistaTaydetRivit() {
@@ -209,12 +217,27 @@ public class Logiikka {
             }
         }
 
-        if (taysiaRiveja > 0) {
+        if (taysiaRiveja == 1) {
             rivejaPoistettu += taysiaRiveja;
-            kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu));
+            this.pisteet = this.pisteet + 10;
+            kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu) + "    Pisteet: " + String.valueOf(pisteet));
+
             pala.asetaMuoto(Tetrominot.EiMuotoa);
             kayttis.repaint();
+        } else if (taysiaRiveja == 2) {
+            rivejaPoistettu += taysiaRiveja;
+            this.pisteet = this.pisteet + taysiaRiveja * 15;
+            kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu) + "    Pisteet: " + String.valueOf(pisteet));
 
+            pala.asetaMuoto(Tetrominot.EiMuotoa);
+            kayttis.repaint();
+        } else if (taysiaRiveja > 2) {
+            rivejaPoistettu += taysiaRiveja;
+            this.pisteet = this.pisteet + taysiaRiveja * 20;
+            kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu) + "    Pisteet: " + String.valueOf(pisteet));
+
+            pala.asetaMuoto(Tetrominot.EiMuotoa);
+            kayttis.repaint();
         }
     }
 

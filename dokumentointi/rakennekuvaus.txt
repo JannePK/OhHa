@@ -1,0 +1,14 @@
+Ohjelman rakenteen kuvaus
+
+Ohjelma jakaantuu paketteihin tetris1, kayttoliittyma ja logiikka, ensinmainitussa vain 
+main-luokka.
+
+Logiikka-paketissa on kaksi luokkaa: Palikka ja Logiikka. Palikka-luokassa on enum Tetrominot,
+ jossa on lueteltu kaikki mahdolliset palikkatyypit. Palikka-luokka on eräänlainen apuluokka
+Logiikka-luokalle, jonka konstruktorissa luodaan uusi Palikka-olio luokan käyttöön. 
+Konstruktorin parametrina on Kayttis-olio, koska sen ominaisuuksia hyödynnetään
+luokan metodeissa.
+
+Kayttoliittyma-paketti sisältää luokat Kayttis ja PelinAlustus. Kayttiksen konstruktorin 
+parametrina on PelinAlustus-olio. PelinAlustus-luokka luo uuden Kayttis-olion.
+

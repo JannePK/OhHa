@@ -1,0 +1,18 @@
+Käyttöohje Tetrikseen
+
+Tetriksessä pelaaja voi liikuttaa ja käännellä peliruudun yläosasta putoavia palikoita (eli 
+tetrominoja). Kun palikka on pudonnut alas, ilmestyy ruudun yläosaan uusi palikka. 
+Tarkoituksena on muodostaa palikoista täysiä rivejä, jotka sitten katoavat. 
+Poistetuista riveistä pidetään kirjaa, ja pelaajan suoritus arvostellaan poistettujen rivien
+määrän perusteella. Peli päättyy, kun tetrominopino on niin korkea, ettei ruudun huipulle 
+mahdu ilmestymään uutta palikkaa.
+
+Kontrollit:
+
+Vasen nuolinäppäin – Siirrä tetrominoa vasemmalle
+Oikea nuolinäppäin – Siirrä tetrominoa oikealle
+Nuolinäppäin alas – Tiputa tetromino alas
+Nuolinäppäin ylös – Käännä putoavaa tetrominoa
+P – Tauota peli
+S – aloita (Starttaa) uusi peli
+A - Nopeuta tetrominon putoamista
