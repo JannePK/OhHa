@@ -32,6 +32,7 @@ Component komponentti = null;
                 + " tai oikealle\nYlempi nuolinäppäin: Käännä palikkaa\nAlempi nuolinäppäin: Pudota palikka alas\n"
                 + "P: Pause\nS: Uusi peli\nA: Laske palikkaa nopeammin.");
         statusbar = new JLabel("Rivejä poistettu: 0    Pisteet: 0");
+ 
         add(statusbar, BorderLayout.SOUTH);
         
         Kayttis peli = new Kayttis(this);
