@@ -138,7 +138,10 @@ public class Logiikka {
             pudonnutPala();
         }
     }
-
+    /**
+     * Metodi laittaa pelin pauselle tai pois pauselta.
+     *
+     */
     public void paussaa() {
 
         onkoPaussilla = !onkoPaussilla;
