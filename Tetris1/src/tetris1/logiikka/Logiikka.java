@@ -72,11 +72,6 @@ public class Logiikka {
 
     }
 
-    public void nollaaRivitJaPisteet() {
-        this.rivejaPoistettu = 0;
-        this.pisteet = 0;
-    }
-
     public Palikka getPala() {
         return pala;
     }
@@ -125,6 +120,14 @@ public class Logiikka {
         boolean onkoAlkanut = onko;
     }
 
+    /**
+     * Metodi asettaa muuttujat rivejaPoistettu ja pisteet nollaksi.
+     *
+     */
+    public void nollaaRivitJaPisteet() {
+        this.rivejaPoistettu = 0;
+        this.pisteet = 0;
+    }
     /**
      * Metodi katsoo, voidaanko palasta liikuttaa. Jos voidaan, kutsutaan
      * pudonnutPala() -metodia.
@@ -221,21 +224,20 @@ public class Logiikka {
             rivejaPoistettu += taysiaRiveja;
             this.pisteet = this.pisteet + 10;
             kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu) + "    Pisteet: " + String.valueOf(pisteet));
-
             pala.asetaMuoto(Tetrominot.EiMuotoa);
             kayttis.repaint();
+       
         } else if (taysiaRiveja == 2) {
             rivejaPoistettu += taysiaRiveja;
             this.pisteet = this.pisteet + taysiaRiveja * 15;
             kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu) + "    Pisteet: " + String.valueOf(pisteet));
-
             pala.asetaMuoto(Tetrominot.EiMuotoa);
             kayttis.repaint();
+        
         } else if (taysiaRiveja > 2) {
             rivejaPoistettu += taysiaRiveja;
             this.pisteet = this.pisteet + taysiaRiveja * 20;
             kayttis.getStatusBar().setText("Rivejä poistettu: " + String.valueOf(rivejaPoistettu) + "    Pisteet: " + String.valueOf(pisteet));
-
             pala.asetaMuoto(Tetrominot.EiMuotoa);
             kayttis.repaint();
         }
@@ -315,6 +317,15 @@ public class Logiikka {
         }
     }
 
+    /**
+     * Metodi palauttaa halutun tetrominon muodon.
+     *
+     * @param x muodot-taulukon x-koordinaatti.
+     * @param y muodot-taulukon y-koordinaatti.
+     *
+     * @return haluttu tetromino.
+     *
+     */
     public Tetrominot tetrominonMuoto(int x, int y) {
         return muodot[(y * RuudunLeveys) + x];
     }

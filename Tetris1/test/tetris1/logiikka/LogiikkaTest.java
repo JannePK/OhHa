@@ -78,7 +78,6 @@ public class LogiikkaTest {
     public void voikoLiikuttaaTest2() {
         Palikka p = new Palikka();
 
-
         boolean b = log.voikoLiikuttaa(p, 100, 100);
         assertEquals(false, b);
         boolean b2 = log.voikoLiikuttaa(p, 1, 1);
@@ -109,15 +108,23 @@ public class LogiikkaTest {
         log.rivejaPoistettu = 0;
         log.poistaTaydetRivit();
 
-
         assertEquals(log.RuudunKorkeus, log.rivejaPoistettu);
     }
+
     @Test
     public void nollaaRivitTest() {
         log.rivejaPoistettu = 10;
         log.pisteet = 10;
-log.nollaaRivitJaPisteet();
+        log.nollaaRivitJaPisteet();
         assertEquals(0, log.rivejaPoistettu);
-         assertEquals(0, log.pisteet);
+        assertEquals(0, log.pisteet);
+    }
+
+    @Test
+    public void tyhjennaRuutuTest() {
+
+        log.tyhjennaRuutu();
+
+        assertEquals(log.muodot[1], log.getPala().getEiMuotoa());
     }
 }

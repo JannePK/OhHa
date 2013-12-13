@@ -62,10 +62,9 @@ public class Kayttis extends JPanel implements ActionListener {
         return ajastin;
     }
 
-    public Logiikka getLogiikka(){
+    public Logiikka getLogiikka() {
         return this.log;
     }
-
 
     /**
      * Metodi aloittaa pelin tyhjentämällä ruudun, luomalla uuden palan ja
@@ -143,16 +142,10 @@ public class Kayttis extends JPanel implements ActionListener {
      */
     private void piirraNelio(Graphics g, int x, int y, Tetrominot muoto) {
 
-//Color varit[] = {new Color(0, 0, 0), new Color(205, 102, 102),
-  //          new Color(102, 204, 102), new Color(102, 102, 204),
-    //        new Color(204, 204, 102), new Color(204, 102, 204),
-    //        new Color(102, 204, 204), new Color(218, 170, 0)
-     //   };
-
-        Color varit[] = {new Color(0, 0, 0), new Color(220, 80, 105),
+        Color varit[] = {new Color(0, 0, 0), new Color(210, 60, 80),
             new Color(0, 0, 128), new Color(0, 128, 128),
-            new Color(160, 82, 45), new Color(255,0,0),
-            new Color(0,100,0), new Color(218, 170, 0)
+            new Color(160, 82, 45), new Color(255, 0, 0),
+            new Color(0, 100, 0), new Color(200, 170, 0)
         };
 
 
@@ -167,10 +160,20 @@ public class Kayttis extends JPanel implements ActionListener {
                 x + nelionLeveys() - 1, y + 1);
     }
 
+    /**
+     * Metodi, joka palauttaa piirrettävän neliön leveyden.
+     *
+     * @return leveys kokonaislukuna.
+     */
     public int nelionLeveys() {
         return (int) getSize().getWidth() / log.getRuudunLeveys();
     }
 
+    /**
+     * Metodi, joka palauttaa piirrettävän neliön korkeuden.
+     *
+     * @return korkeus kokonaislukuna.
+     */
     public int nelionKorkeus() {
         return (int) getSize().getHeight() / log.getRuudunKorkeus();
     }
@@ -204,26 +207,24 @@ public class Kayttis extends JPanel implements ActionListener {
                     log.voikoLiikuttaa(log.getPala().kaannaVasemmalle(), log.getNykyinenX(), log.getNykyinenY());
                     break;
                 case KeyEvent.VK_SPACE:
-
                     break;
-
                 case 'a':
                     log.pykalaAlas();
                     break;
                 case 'A':
                     log.pykalaAlas();
                     break;
-                    case 's':
+                case 's':
                     starttaa();
                     log.nollaaRivitJaPisteet();
-                    statusbar.setText("Rivejä poistettu: " + String.valueOf(log.rivejaPoistettu)+ "    Pisteet: " + String.valueOf(log.pisteet) );
+                    statusbar.setText("Rivejä poistettu: " + String.valueOf(log.rivejaPoistettu) + "    Pisteet: " + String.valueOf(log.pisteet));
                     break;
                 case 'S':
                     starttaa();
-                     log.nollaaRivitJaPisteet();
-                     statusbar.setText("Rivejä poistettu: " + String.valueOf(log.rivejaPoistettu)+ "    Pisteet: " + String.valueOf(log.pisteet));
+                    log.nollaaRivitJaPisteet();
+                    statusbar.setText("Rivejä poistettu: " + String.valueOf(log.rivejaPoistettu) + "    Pisteet: " + String.valueOf(log.pisteet));
                     break;
-                    
+
             }
         }
     }
